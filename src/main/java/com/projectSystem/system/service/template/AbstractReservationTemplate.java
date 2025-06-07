@@ -18,10 +18,8 @@ public abstract class AbstractReservationTemplate<T> {
         }
     }
 
-    // 🔁 MÉTODO VARIABLE
     protected abstract void validateCustom(T dto);
 
-    // 🔁 MÉTODO VARIABLE
     protected abstract T create(T dto);
 
     protected abstract LocalDateTime getStartDate(T dto);
