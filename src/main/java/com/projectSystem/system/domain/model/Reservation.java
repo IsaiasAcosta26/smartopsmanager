@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +17,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "Reservations")
 @Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class Reservation {
 
     @Id
@@ -24,6 +29,14 @@ public class Reservation {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String reason;
+
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;

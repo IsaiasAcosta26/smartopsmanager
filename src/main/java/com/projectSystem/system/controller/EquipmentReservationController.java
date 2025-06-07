@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/equipment")
 public class EquipmentReservationController {
 
-    private final EquipmentReservationService EquipmentReservationService;
+    private final EquipmentReservationService equipmentReservationService;
 
     @PostMapping("/save")
     public ResponseEntity<EquipmentReservationDto> create(@RequestBody EquipmentReservationDto EquipmentReservationDto) {
-        EquipmentReservationService.create(EquipmentReservationDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(EquipmentReservationDto);
+        equipmentReservationService.create(EquipmentReservationDto);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(equipmentReservationService.validateAndCreate(EquipmentReservationDto));
     }
 }
