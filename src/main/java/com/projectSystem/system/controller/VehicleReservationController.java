@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/vehicle")
 public class VehicleReservationController {
 
-    private final VehicleReservationService VehicleReservationService;
+    private final VehicleReservationService vehicleReservationService;
 
     @PostMapping("/save")
     public ResponseEntity<VehicleReservationDto> create(@RequestBody VehicleReservationDto VehicleReservationDto) {
-        VehicleReservationService.create(VehicleReservationDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(VehicleReservationDto);
+        vehicleReservationService.create(VehicleReservationDto);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(vehicleReservationService.validateAndCreate(VehicleReservationDto));
     }
 
 }
